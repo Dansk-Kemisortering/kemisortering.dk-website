@@ -12,13 +12,35 @@
         extend: {
           colors: {
             primary: '#00859B',
+            'primary-dark': '#006d7f',
             secondary: '#4b5e79',
+            'secondary-dark': '#3a4a5f',
             tertiary: '#d8cc5a',
             sand: '#e7e5c1',
             contrast: '#1d4955',
+            light: '#f8fafa',
           },
           fontFamily: {
             sans: ['Lato', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.6s ease-out forwards',
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
           },
         }
       }
@@ -26,61 +48,186 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.png" sizes="32x32">
-</head>
-<body class="font-sans text-contrast bg-white">
+  <style>
+    html { scroll-behavior: smooth; }
+    .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .btn-shine { position: relative; overflow: hidden; }
+    .btn-shine::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); transform: rotate(45deg) translateX(-100%); transition: transform 0.6s; }
+    .btn-shine:hover::after { transform: rotate(45deg) translateX(100%); }
+    .text-shadow { text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .text-shadow-light { text-shadow: 0 2px 15px rgba(255,255,255,0.5); }
+    .process-line { position: relative; }
+    .process-line::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #00859B, transparent); z-index: 0; }
+    @media (max-width: 768px) { .process-line::before { display: none; } }
 
-  <!-- Hero Section -->
-  <header class="relative min-h-[70vh] flex items-center justify-center">
-    <img
-      src="img/hero-bg.png"
-      alt="Dansk Kemisortering"
-      class="absolute inset-0 w-full h-full object-cover object-[50%_75%]"
-    >
-    <div class="relative z-10 text-center px-6">
-      <div class="inline-block bg-primary rounded-xl p-6 mb-6">
-        <img
-          src="img/logo-tall.png"
-          alt="Dansk Kemisortering Logo"
-          class="w-44 h-auto mx-auto"
-        >
+    /* Hero styles */
+    .hero-split { clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+    @media (min-width: 1024px) { .hero-split { clip-path: polygon(0 0, 60% 0, 45% 100%, 0 100%); } }
+    .hero-image-clip { clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%); }
+    @media (max-width: 1023px) { .hero-image-clip { clip-path: none; } }
+  </style>
+</head>
+<body class="font-sans text-contrast bg-white antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <img src="img/logo.png" alt="Dansk Kemisortering" class="w-10 h-10 transition-transform group-hover:scale-110">
+        <span class="font-bold text-primary hidden sm:block">Dansk Kemisortering</span>
+      </a>
+      <div class="flex items-center gap-6">
+        <a href="#proces" class="text-sm font-medium text-contrast/70 hover:text-primary transition-colors hidden md:block">Proces</a>
+        <a href="#hvorfor" class="text-sm font-medium text-contrast/70 hover:text-primary transition-colors hidden md:block">Hvorfor os</a>
+        <a href="#kontakt" class="bg-primary text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-primary-dark transition-all btn-shine">
+          Kontakt
+        </a>
       </div>
-      <h1 class="text-3xl md:text-4xl font-normal text-contrast">Dansk Kemisortering</h1>
+    </div>
+  </nav>
+
+  <!-- Hero Section - Split Layout -->
+  <header class="relative min-h-screen lg:min-h-0 lg:h-screen">
+    <div class="flex flex-col lg:flex-row min-h-screen lg:min-h-0 lg:h-full">
+
+      <!-- Left: Content -->
+      <div class="relative z-10 flex-1 flex items-center bg-gradient-to-br from-white via-light to-primary/5 px-6 lg:px-16 py-24 lg:py-0 order-2 lg:order-1">
+        <div class="max-w-xl mx-auto lg:mx-0 lg:ml-auto lg:mr-16">
+
+          <!-- Logo badge -->
+          <div class="inline-flex items-center gap-3 bg-primary/10 rounded-full pl-2 pr-5 py-2 mb-8">
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+              <img src="img/logo.png" alt="" class="w-6 h-6">
+            </div>
+            <span class="text-sm font-semibold text-primary">Dansk Kemisortering A/S</span>
+          </div>
+
+          <!-- Main headline -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-contrast leading-tight mb-6">
+            Bæredygtig håndtering af
+            <span class="text-primary">farligt affald</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-lg lg:text-xl text-contrast/70 mb-10 leading-relaxed">
+            Vi omdanner kemisk affald til genanvendelige ressourcer. Miljøgodkendt, sikkert og økonomisk fornuftigt.
+          </p>
+
+          <!-- CTA buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+            <a href="#velkommen" class="group inline-flex items-center justify-center gap-3 bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-dark transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30">
+              Se hvordan vi arbejder
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#kontakt" class="inline-flex items-center justify-center gap-3 bg-white text-contrast px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg border border-gray-200">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              Kontakt os
+            </a>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <!-- Right: Image -->
+      <div class="relative flex-1 min-h-[50vh] lg:min-h-0 order-1 lg:order-2">
+        <img
+          src="img/hero-bg-2026.png"
+          alt="Dansk Kemisortering facility"
+          class="absolute inset-0 w-full h-full object-cover"
+        >
+        <!-- Overlay gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-white/80 via-transparent to-transparent lg:from-white lg:via-white/20 lg:to-transparent"></div>
+
+        <!-- Floating logo card -->
+        <div class="absolute bottom-8 right-8 left-8 lg:left-auto lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 lg:right-12 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl max-w-xs">
+          <div class="flex items-start gap-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+              <img src="img/logo-tall.png" alt="Logo" class="w-10 h-auto">
+            </div>
+            <div>
+              <h3 class="font-bold text-contrast text-lg">Cirkulær økonomi</h3>
+              <p class="text-sm text-contrast/60 mt-1">Vi genanvender og behandler kemi ansvarligt</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accent shapes -->
+        <div class="hidden lg:block absolute top-20 right-20 w-20 h-20 border-4 border-primary/20 rounded-full"></div>
+        <div class="hidden lg:block absolute bottom-32 right-48 w-12 h-12 bg-tertiary/40 rounded-lg rotate-12"></div>
+      </div>
+
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden lg:flex flex-col items-center gap-2">
+      <div class="w-6 h-10 border-2 border-contrast/30 rounded-full flex justify-center pt-2">
+        <div class="w-1.5 h-3 bg-primary rounded-full animate-bounce"></div>
+      </div>
     </div>
   </header>
 
   <!-- Welcome Section -->
-  <section class="bg-secondary text-white py-16 px-6">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-normal text-center mb-2">Velkommen til Dansk Kemisortering</h2>
-      <p class="text-xl md:text-2xl text-center mb-12">– Din partner i miljøvenlig og sikker affaldshåndtering</p>
+  <section id="velkommen" class="relative bg-gradient-to-br from-secondary to-secondary-dark text-white py-24 px-6 overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-tertiary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
-      <div class="space-y-10">
-        <div class="flex flex-col md:flex-row items-center gap-8">
+    <div class="max-w-6xl mx-auto relative">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-black mb-4">Bæredygtig Affaldshåndtering</h2>
+        <p class="text-xl text-white/80 max-w-2xl mx-auto">Vi specialiserer os i håndtering af plastbeholdere med kemi – specifikt syrer og baser</p>
+      </div>
+
+      <div class="space-y-8">
+        <div class="flex flex-col md:flex-row items-center gap-8 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
           <div class="md:w-1/3 flex justify-center">
-            <img src="img/bottle-1.png" alt="Kemibeholder" class="w-72 h-auto">
+            <div class="relative">
+              <div class="absolute inset-0 bg-primary/20 rounded-full blur-2xl"></div>
+              <img src="img/bottle-1.png" alt="Kemibeholder" class="relative w-64 h-auto drop-shadow-2xl">
+            </div>
           </div>
           <div class="md:w-2/3">
-            <p>Hos Dansk Kemisortering specialiserer vi os i håndteringen af plastbeholdere med kemi – specifikt syrer og baser. Disse beholdere indsamles fra private forbrugere, der har sorteret dem som farligt affald, hvorefter de på genbrugspladserne pakkes i spændelåsfade med vermiculit.</p>
+            <div class="inline-flex items-center gap-2 bg-primary/20 px-3 py-1 rounded-full text-sm mb-4">
+              <span class="w-2 h-2 bg-primary rounded-full"></span>
+              Indsamling
+            </div>
+            <p class="text-lg leading-relaxed text-white/90">Hos Dansk Kemisortering specialiserer vi os i håndteringen af plastbeholdere med kemi – specifikt syrer og baser. Disse beholdere indsamles fra private forbrugere, der har sorteret dem som farligt affald, hvorefter de på genbrugspladserne pakkes i spændelåsfade med vermiculit.</p>
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="flex flex-col md:flex-row-reverse items-center gap-8 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
           <div class="md:w-1/3 flex justify-center">
-            <img src="img/bottle-2.png" alt="Kemibeholder" class="w-72 h-auto">
+            <div class="relative">
+              <div class="absolute inset-0 bg-tertiary/20 rounded-full blur-2xl"></div>
+              <img src="img/bottle-2.png" alt="Kemibeholder" class="relative w-64 h-auto drop-shadow-2xl">
+            </div>
           </div>
           <div class="md:w-2/3">
-            <p>I dagens Danmark er standardproceduren at brænde det farlige affald – inklusive spændelåsfade med indhold. Selvom det er en effektiv måde at minimere risikoen for miljø- og sundhedsskader, er det ikke den mest bæredygtige løsning.</p>
+            <div class="inline-flex items-center gap-2 bg-tertiary/20 px-3 py-1 rounded-full text-sm mb-4">
+              <span class="w-2 h-2 bg-tertiary rounded-full"></span>
+              Udfordringen
+            </div>
+            <p class="text-lg leading-relaxed text-white/90">I dagens Danmark er standardproceduren at brænde det farlige affald – inklusive spændelåsfade med indhold. Selvom det er en effektiv måde at minimere risikoen for miljø- og sundhedsskader, er det ikke den mest bæredygtige løsning.</p>
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="flex flex-col md:flex-row items-center gap-8 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
           <div class="md:w-1/3 flex justify-center">
-            <img src="img/bottle-3.png" alt="Kemibeholder" class="w-72 h-auto">
+            <div class="relative">
+              <div class="absolute inset-0 bg-green-400/20 rounded-full blur-2xl"></div>
+              <img src="img/bottle-3.png" alt="Kemibeholder" class="relative w-64 h-auto drop-shadow-2xl">
+            </div>
           </div>
           <div class="md:w-2/3">
-            <p>Vores mål, hos Dansk Kemisortering, er at ændre denne praksis inden for affaldshåndtering af farligt affald ved at introducere og implementere bæredygtige alternativer. Vi tror på genbrug og genanvendelse af materialer, hvor det er muligt.</p>
+            <div class="inline-flex items-center gap-2 bg-green-400/20 px-3 py-1 rounded-full text-sm mb-4">
+              <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+              Vores løsning
+            </div>
+            <p class="text-lg leading-relaxed text-white/90">Vores mål, hos Dansk Kemisortering, er at ændre denne praksis inden for affaldshåndtering af farligt affald ved at introducere og implementere bæredygtige alternativer. Vi tror på genbrug og genanvendelse af materialer, hvor det er muligt.</p>
           </div>
         </div>
       </div>
@@ -88,78 +235,132 @@
   </section>
 
   <!-- Process Section -->
-  <section class="py-16 px-6 bg-white">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-normal text-center mb-4">Vores Proces</h2>
-      <p class="text-center text-lg mb-12 max-w-2xl mx-auto">
-        Det er egentlig ganske enkelt hvad vi gør – vi modtager en samlet pakke fra de genbrugsstationer vi samarbejder med – så pakker vi den op og deler den ud i forskellige fraktioner.
-      </p>
+  <section id="proces" class="py-24 px-6 bg-light">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">Vores Proces</span>
+        <h2 class="text-4xl md:text-5xl font-black text-contrast mb-4">Sådan arbejder vi</h2>
+        <p class="text-lg text-contrast/70 max-w-2xl mx-auto">
+          Det er egentlig ganske enkelt – vi modtager en samlet pakke fra genbrugsstationer og deler den ud i forskellige fraktioner.
+        </p>
+      </div>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="text-center p-6 bg-gray-50 rounded-lg">
-          <img src="img/process-1.png" alt="Spændelåsfade" class="w-40 h-40 object-contain mx-auto mb-4">
-          <h3 class="font-semibold text-lg">Vi modtager spændelåsfade med beholdere pakket i vermiculite</h3>
+      <div class="grid md:grid-cols-4 gap-6 process-line">
+        <div class="relative bg-white rounded-2xl p-8 shadow-lg card-hover border border-gray-100 text-center z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold shadow-lg">1</div>
+          <div class="bg-primary/5 rounded-xl p-4 mb-6 inline-block">
+            <img src="img/process-1.png" alt="Spændelåsfade" class="w-24 h-24 object-contain mx-auto">
+          </div>
+          <h3 class="font-bold text-lg mb-2">Modtagelse</h3>
+          <p class="text-sm text-contrast/70">Spændelåsfade med beholdere pakket i vermiculite</p>
         </div>
 
-        <div class="text-center p-6 bg-gray-50 rounded-lg">
-          <img src="img/process-2.png" alt="Emballage til genbrug" class="w-40 h-40 object-contain mx-auto mb-4">
-          <h3 class="font-semibold text-lg">Emballage til genbrug</h3>
+        <div class="relative bg-white rounded-2xl p-8 shadow-lg card-hover border border-gray-100 text-center z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold shadow-lg">2</div>
+          <div class="bg-tertiary/10 rounded-xl p-4 mb-6 inline-block">
+            <img src="img/process-2.png" alt="Emballage til genbrug" class="w-24 h-24 object-contain mx-auto">
+          </div>
+          <h3 class="font-bold text-lg mb-2">Genbrug</h3>
+          <p class="text-sm text-contrast/70">Emballage sorteres til genbrug</p>
         </div>
 
-        <div class="text-center p-6 bg-gray-50 rounded-lg">
-          <img src="img/process-3.png" alt="Syrer og Baser" class="w-40 h-40 object-contain mx-auto mb-4">
-          <h3 class="font-semibold text-lg">Syrer og Baser til behandling</h3>
+        <div class="relative bg-white rounded-2xl p-8 shadow-lg card-hover border border-gray-100 text-center z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold shadow-lg">3</div>
+          <div class="bg-secondary/10 rounded-xl p-4 mb-6 inline-block">
+            <img src="img/process-3.png" alt="Syrer og Baser" class="w-24 h-24 object-contain mx-auto">
+          </div>
+          <h3 class="font-bold text-lg mb-2">Behandling</h3>
+          <p class="text-sm text-contrast/70">Syrer og baser til specialbehandling</p>
         </div>
 
-        <div class="text-center p-6 bg-gray-50 rounded-lg">
-          <img src="img/process-4.png" alt="Granulat" class="w-40 h-40 object-contain mx-auto mb-4">
-          <h3 class="font-semibold text-lg">Granulat til destruktion</h3>
+        <div class="relative bg-white rounded-2xl p-8 shadow-lg card-hover border border-gray-100 text-center z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold shadow-lg">4</div>
+          <div class="bg-sand/50 rounded-xl p-4 mb-6 inline-block">
+            <img src="img/process-4.png" alt="Granulat" class="w-24 h-24 object-contain mx-auto">
+          </div>
+          <h3 class="font-bold text-lg mb-2">Destruktion</h3>
+          <p class="text-sm text-contrast/70">Granulat til sikker destruktion</p>
         </div>
       </div>
 
-      <p class="text-center font-semibold mt-10 text-lg">
-        Kontakt os gerne for muligheder i at købe UN-godkendte spændelåsfade og vermiculite
-      </p>
+      <div class="mt-16 text-center">
+        <div class="inline-flex items-center gap-3 bg-gradient-to-r from-primary/10 to-tertiary/10 px-8 py-4 rounded-2xl border border-primary/20">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <p class="font-semibold text-contrast">Kontakt os for UN-godkendte spændelåsfade og vermiculite</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Why Choose Us Section -->
-  <section class="py-16 px-6 bg-tertiary">
-    <div class="max-w-5xl mx-auto">
-      <div class="flex flex-col lg:flex-row gap-12">
+  <section id="hvorfor" class="py-24 px-6 bg-gradient-to-br from-tertiary to-tertiary/80">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col lg:flex-row gap-16">
         <div class="lg:w-3/5">
-          <h2 class="text-3xl font-bold mb-6">Hvorfor vælge os?</h2>
+          <span class="inline-block bg-contrast/10 text-contrast px-4 py-1 rounded-full text-sm font-medium mb-4">Vores fordele</span>
+          <h2 class="text-4xl md:text-5xl font-black text-contrast mb-8">Hvorfor vælge os?</h2>
 
-          <ul class="space-y-6 mb-8">
-            <li>
-              <strong>Sikkerhed og miljøgodkendelse:</strong> Vores håndtering og processer er miljøgodkendte, og vi prioriterer sikkerheden højt i alle led af processen. Dette inkluderer særlige forholdsregler, hvor vi behandler syre- og base-beholdere hver for sig, med grundig rengøring imellem.
-            </li>
-            <li>
-              <strong>Bidrag til cirkulær økonomi:</strong> Vi arbejder aktivt for at minimere affald og genbruge materialer, hvor det er muligt. Dette omfatter løbende tests for at undersøge genanvendelsesmuligheder for blandt andet plastgranulat.
-            </li>
-            <li>
-              <strong>Konkurencedygtigt alternativ til afbrænding</strong>
-            </li>
-          </ul>
+          <div class="space-y-6">
+            <div class="flex gap-4 bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+              <div class="flex-shrink-0 w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg mb-1">Sikkerhed og miljøgodkendelse</h3>
+                <p class="text-contrast/80">Vores processer er miljøgodkendte med høj sikkerhedsprioritering. Vi behandler syre- og base-beholdere separat med grundig rengøring imellem.</p>
+              </div>
+            </div>
 
-          <p class="mb-6">Vores mission er at gøre affaldshåndtering sikker, effektiv og miljøvenlig. Ved at vælge Dansk Kemisortering som din partner, bidrager du aktivt til en grønnere fremtid og støtter innovation inden for affaldshåndtering.</p>
+            <div class="flex gap-4 bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+              <div class="flex-shrink-0 w-12 h-12 bg-secondary rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg mb-1">Cirkulær økonomi</h3>
+                <p class="text-contrast/80">Vi arbejder aktivt på at minimere affald og genbruge materialer. Løbende tests undersøger genanvendelsesmuligheder for plastgranulat.</p>
+              </div>
+            </div>
 
-          <p class="font-semibold">Vil du høre mere? Så tøv ikke med at kontakte os – måske skal dit farlige affald forby os inden det brændes af?</p>
+            <div class="flex gap-4 bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-white/50">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg mb-1">Konkurencedygtigt alternativ</h3>
+                <p class="text-contrast/80">Et bæredygtigt og økonomisk alternativ til traditionel afbrænding af farligt affald.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-8 text-lg text-contrast/80">Vores mission er at gøre affaldshåndtering sikker, effektiv og miljøvenlig. Ved at vælge os bidrager du til en grønnere fremtid.</p>
         </div>
 
-        <div class="lg:w-2/5">
-          <div class="bg-sand rounded-lg p-8 text-center">
-            <svg class="w-20 h-20 mx-auto mb-4 text-contrast" fill="currentColor" viewBox="0 0 512 512">
-              <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
-            </svg>
-            <p class="text-xl mb-4">Fang os på telefon</p>
-            <a href="tel:+4524988347" class="inline-block bg-primary text-white font-bold py-3 px-6 rounded-lg text-lg mb-6 hover:bg-primary/90 transition">
-              +45 24 98 83 47
-            </a>
-            <p class="text-xl mb-4">Eller på mail</p>
-            <a href="mailto:info@kemisortering.dk" class="inline-block bg-primary text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-primary/90 transition">
-              info@kemisortering.dk
-            </a>
+        <div id="kontakt" class="lg:w-2/5">
+          <div class="bg-white rounded-3xl p-10 shadow-2xl sticky top-24">
+            <div class="text-center mb-8">
+              <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-primary-dark rounded-2xl mb-4 shadow-lg">
+                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 512 512">
+                  <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-contrast">Kontakt os</h3>
+              <p class="text-contrast/60">Vi er klar til at hjælpe</p>
+            </div>
+
+            <div class="space-y-4">
+              <a href="tel:+4524988347" class="flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-primary-dark text-white font-bold py-4 px-6 rounded-xl text-lg hover:shadow-lg hover:scale-[1.02] transition-all btn-shine w-full">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg>
+                +45 24 98 83 47
+              </a>
+              <a href="mailto:info@kemisortering.dk" class="flex items-center justify-center gap-3 bg-secondary text-white font-bold py-4 px-6 rounded-xl text-lg hover:bg-secondary-dark hover:shadow-lg hover:scale-[1.02] transition-all btn-shine w-full">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+                info@kemisortering.dk
+              </a>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-100 text-center text-sm text-contrast/60">
+              <p>Vi svarer typisk inden for 24 timer</p>
+            </div>
           </div>
         </div>
       </div>
@@ -167,31 +368,57 @@
   </section>
 
   <!-- Footer -->
-  <footer class="py-16 px-6 text-primary">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid md:grid-cols-3 gap-10">
-        <div>
-          <img src="img/logo.png" alt="Dansk Kemisortering" class="w-40 h-auto">
+  <footer class="bg-contrast text-white py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="md:col-span-1">
+          <img src="img/logo.png" alt="Dansk Kemisortering" class="w-24 h-auto mb-4 brightness-0 invert opacity-90">
+          <p class="text-white/60 text-sm">Din partner i miljøvenlig og sikker affaldshåndtering</p>
         </div>
 
         <div>
-          <p class="font-bold mb-2">Dansk Kemisortering A/S</p>
-          <p>Sandvedvej 61<br>4250 Fuglebjerg<br>Danmark</p>
-          <p class="mt-4">CVR: 39633078</p>
-          <p class="mt-4">
-            Tel: +45 24 98 83 47<br>
-            Email: info@kemisortering.dk
+          <h4 class="font-bold mb-4 text-primary">Hovedkontor</h4>
+          <p class="text-white/80 font-semibold">Dansk Kemisortering A/S</p>
+          <p class="text-white/60 text-sm mt-2">P. O. Pedersens Vej 2<br>8200 Aarhus<br>Danmark</p>
+          <p class="text-white/60 text-sm mt-2">CVR: 46183231</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold mb-4 text-primary">Kontakt</h4>
+          <p class="text-white/80">
+            <a href="tel:+4524988347" class="hover:text-primary transition-colors">+45 24 98 83 47</a>
+          </p>
+          <p class="text-white/80 mt-1">
+            <a href="mailto:info@kemisortering.dk" class="hover:text-primary transition-colors">info@kemisortering.dk</a>
           </p>
         </div>
 
         <div>
-          <p>Dansk Kemisortering er en udspringer fra søsterselskaber inden for shipping, spildevandsbehandling og maritime services. Vi er en del af Rinaldo Holding koncernen, som beskæftiger sig med videnstunge industrier såsom affaldshåndtering, transport, rådgivning, sikkerhed og miljø.</p>
+          <h4 class="font-bold mb-4 text-primary">Om os</h4>
+          <p class="text-white/60 text-sm">Dansk Kemisortering A/S er en danskejet virksomhed med speciale i kemisortering og affaldshåndtering. Vi har en lang erfaring med at sortere og håndtere kemikalier og andre affaldstyper på en bæredygtig måde.</p>
         </div>
+      </div>
+
+      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40">
+        <p>&copy; 2025 Dansk Kemisortering A/S. Alle rettigheder forbeholdes.</p>
+        <p>Bæredygtig affaldshåndtering siden 2018.</p>
       </div>
     </div>
   </footer>
 
-  <div class="bg-primary h-24"></div>
+  <script>
+    // Navbar scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('shadow-md', 'bg-white');
+        nav.classList.remove('bg-white/90');
+      } else {
+        nav.classList.remove('shadow-md', 'bg-white');
+        nav.classList.add('bg-white/90');
+      }
+    });
+  </script>
 
 </body>
 </html>
