@@ -1,0 +1,10 @@
+.DS_Store
+.claude/
+
+# Work-in-progress / not part of the published site
+Theis - Nyt detaljeret website/
+
+# Orphaned raster logos (replaced by SVG)
+img/logo.webp
+img/logo-tall.webp
+img/favicon-192.webp
