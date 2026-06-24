@@ -2,6 +2,37 @@
 
 @source "../templates";
 
+/* Self-hosted Lato (latin subset, U+0000-00FF covers Danish æøå).
+   Replaces the Google Fonts <link> — no third-party request, SRI-safe. */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/lato-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/lato-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/lato-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/lato-900.woff2') format('woff2');
+}
+
 @theme {
   --color-primary: #00859B;
   --color-primary-dark: #006d7f;
