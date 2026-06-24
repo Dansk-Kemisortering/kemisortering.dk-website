@@ -15,7 +15,7 @@
 - **Headquarters:** P. O. Pedersens Vej 2, 8200 Aarhus N, Denmark
 - **Sorting facility (Jutland):** Sønderlundvej 10, 7500 Holstebro, Denmark
 - **Phone:** +45 5555 5252
-- **Email:** info@kemisortering.dk
+- **Email:** ta@kemisortering.dk
 - **Website:** https://www.kemisortering.dk/
 - **Language:** Danish (da-DK)
 
@@ -49,7 +49,7 @@ be environmentally approved (miljøgodkendt), safe, and economically viable.
 ## Contact
 
 - Phone: +45 5555 5252
-- Email: info@kemisortering.dk
+- Email: ta@kemisortering.dk
 - Headquarters: P. O. Pedersens Vej 2, 8200 Aarhus N, Denmark
 - Sorting facility (Jutland): Sønderlundvej 10, 7500 Holstebro, Denmark
 - Service area: All of Denmark
