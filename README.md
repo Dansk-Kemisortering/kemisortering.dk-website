@@ -4,8 +4,8 @@ Marketing site for Dansk Kemisortering A/S — a single-page static site at
 [www.kemisortering.dk](https://www.kemisortering.dk/).
 
 Built with [Zola](https://www.getzola.org/) (static site generator) and
-Tailwind CSS v4 (compiled locally), served by Caddy on a VPS at
-`hel1.x2q.net`.
+Tailwind CSS v4 (compiled locally). Hosted on **Cloudflare Pages**, which
+builds and deploys automatically on every push to `master`.
 
 ## Repository layout
 
@@ -58,16 +58,34 @@ handles it incrementally; `make css` does a one-shot minified build.
 
 ## Deploy
 
+Deployment is automatic: **push to `master` → Cloudflare Pages builds and
+publishes.** No manual step.
+
+Cloudflare Pages settings (project `kemisortering-dk-website`):
+
+| Setting | Value |
+|---|---|
+| Build command | `zola build` |
+| Build output directory | `public` |
+| Production branch | `master` |
+| `ZOLA_VERSION` (build variable) | `0.22.1` — **must be set**, else Pages uses an old default Zola |
+
+The compiled CSS (`static/css/styles.css`) is **committed**, so the Pages
+build only runs `zola build` — it does not need the Tailwind CLI. This
+means: **after changing any template class, rebuild the CSS and commit it**
+(`make css`), or the new styles won't ship. `make build` before committing
+catches this.
+
+HTTP response headers (security headers + cache-control) are served from
+[`static/_headers`](static/_headers), which Cloudflare Pages reads.
+
+### Manual / VPS fallback
+
+The repo also still supports rsync to the old Caddy VPS:
+
 ```sh
-make deploy
+make deploy   # build + rsync public/ to root@hel1.x2q.net
 ```
-
-That builds the CSS, runs `zola build` into `public/`, then mirrors
-`public/` to `root@hel1.x2q.net:/data/sites/kemisortering.dk/` with
-`rsync --delete`. Caddy serves the directory directly — no reload step.
-
-> `rsync --delete` makes the server match `public/` exactly. Anything in
-> the deploy directory that isn't produced by the build will be removed.
 
 ## Asset workflow
 
@@ -87,10 +105,10 @@ That builds the CSS, runs `zola build` into `public/`, then mirrors
 
 ## Out-of-repo configuration
 
-Some scanner expectations are not fixable by changing files in this repo:
-
 | Concern | Lives in |
 |---|---|
-| Security headers (HSTS, CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy) | Caddyfile on `hel1.x2q.net` |
-| SPF, DMARC, CAA records | DNS at the registrar for `kemisortering.dk` |
+| Security + cache headers | [`static/_headers`](static/_headers) (Cloudflare Pages) |
+| `ZOLA_VERSION` build pin | Cloudflare Pages → Settings → Variables and secrets |
+| Custom domain (`www.kemisortering.dk`) + apex→www redirect | Cloudflare Pages → Custom domains |
+| SPF, DMARC, CAA records | DNS for `kemisortering.dk` |
 | MX / DKIM | already configured (Google Workspace) |
