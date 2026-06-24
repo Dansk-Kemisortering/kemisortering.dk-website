@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="{{ config.default_language }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  <meta name="description" content="{{ config.description }}">
+  <link rel="canonical" href="{{ config.base_url | safe }}/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dansk Kemisortering">
+  <meta property="og:locale" content="da_DK">
+  <meta property="og:url" content="{{ config.base_url | safe }}/">
+  <meta property="og:title" content="{{ config.title }}">
+  <meta property="og:description" content="{{ config.extra.og_description }}">
+  <meta property="og:image" content="{{ get_url(path=config.extra.og_image) }}">
+  <meta property="og:image:width" content="1536">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Dansk Kemisortering facility">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ config.title }}">
+  <meta name="twitter:description" content="{{ config.extra.og_description }}">
+  <meta name="twitter:image" content="{{ get_url(path=config.extra.og_image) }}">
+
+  <link rel="preload" as="image" href="{{ get_url(path='img/hero-bg-2026-1024.webp') }}" type="image/webp" imagesrcset="{{ get_url(path='img/hero-bg-2026-768.webp') }} 768w, {{ get_url(path='img/hero-bg-2026-1024.webp') }} 1024w, {{ get_url(path='img/hero-bg-2026-1536.webp') }} 1536w" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
+
+  <link rel="stylesheet" href="{{ get_url(path='css/styles.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="{{ get_url(path='img/logo.svg') }}" type="image/svg+xml">
+  <link rel="icon" href="{{ get_url(path='img/favicon-192.png') }}" sizes="192x192" type="image/png">
+  <link rel="icon" href="{{ get_url(path='img/favicon-48.png') }}" sizes="48x48" type="image/png">
+  <link rel="icon" href="{{ get_url(path='img/favicon.png') }}" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="{{ get_url(path='apple-touch-icon.png') }}">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "{{ config.base_url | safe }}/#organization",
+    "name": "{{ config.extra.org_name | safe }}",
+    "url": "{{ config.base_url | safe }}/",
+    "logo": "{{ get_url(path='img/logo.svg') }}",
+    "image": "{{ get_url(path=config.extra.og_image) }}",
+    "description": "Dansk Kemisortering specialiserer sig i håndtering af plastbeholdere med kemi – syrer og baser. Din partner i miljøvenlig og sikker affaldshåndtering. Vi servicerer hele Danmark.",
+    "telephone": "{{ config.extra.phone_e164 }}",
+    "email": "{{ config.extra.email }}",
+    "foundingDate": "{{ config.extra.founded }}",
+    "vatID": "DK{{ config.extra.cvr }}",
+    "taxID": "{{ config.extra.cvr }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ config.extra.hq_street }}",
+      "postalCode": "{{ config.extra.hq_postcode }}",
+      "addressLocality": "{{ config.extra.hq_city }}",
+      "addressCountry": "DK"
+    },
+    "location": [
+      {
+        "@type": "Place",
+        "name": "Hovedkontor",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ config.extra.hq_street }}",
+          "postalCode": "{{ config.extra.hq_postcode }}",
+          "addressLocality": "{{ config.extra.hq_city }}",
+          "addressRegion": "{{ config.extra.hq_region }}",
+          "addressCountry": "DK"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "{{ config.extra.jylland_name }}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ config.extra.jylland_street }}",
+          "postalCode": "{{ config.extra.jylland_postcode }}",
+          "addressLocality": "{{ config.extra.jylland_city }}",
+          "addressRegion": "{{ config.extra.jylland_region }}",
+          "addressCountry": "DK"
+        }
+      }
+    ],
+    "areaServed": {
+      "@type": "Country",
+      "name": "Denmark",
+      "alternateName": "Danmark",
+      "sameAs": "https://www.wikidata.org/wiki/Q35"
+    },
+    "serviceArea": {
+      "@type": "Country",
+      "name": "Denmark"
+    },
+    "sameAs": [
+      "{{ config.extra.cvr_authoritative_url | safe }}"
+    ]
+  }
+  </script>
+  {% block extra_head %}{% endblock extra_head %}
+</head>
+<body class="font-sans text-contrast bg-white antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <img src="{{ get_url(path='img/logo.svg') }}" alt="Dansk Kemisortering" width="512" height="512" class="w-10 h-10 transition-transform group-hover:scale-110">
+        <span class="font-bold text-primary hidden sm:block">Dansk Kemisortering</span>
+      </a>
+      <div class="flex items-center gap-6">
+        <a href="#proces" class="text-sm font-medium text-contrast/70 hover:text-primary transition-colors hidden md:block">Proces</a>
+        <a href="#hvorfor" class="text-sm font-medium text-contrast/70 hover:text-primary transition-colors hidden md:block">Hvorfor os</a>
+        <a href="#kontakt" class="bg-primary text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-primary-dark transition-all btn-shine">
+          Kontakt
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+{% block content %}{% endblock content %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-contrast text-white py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="md:col-span-1">
+          <img src="{{ get_url(path='img/logo.svg') }}" alt="Dansk Kemisortering" width="512" height="512" class="w-24 h-auto mb-4 opacity-90">
+          <p class="text-white/60 text-sm">Din partner i miljøvenlig og sikker affaldshåndtering</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold mb-4 text-primary">Hovedkontor</h4>
+          <p class="text-white/80 font-semibold">{{ config.extra.org_name | safe }}</p>
+          <address class="text-white/60 text-sm mt-2 not-italic">{{ config.extra.hq_street }}<br>{{ config.extra.hq_postcode }} {{ config.extra.hq_city }}<br>Danmark</address>
+
+          <h4 class="font-bold mt-6 mb-2 text-primary">{{ config.extra.jylland_name }}</h4>
+          <address class="text-white/60 text-sm not-italic">{{ config.extra.jylland_street }}<br>{{ config.extra.jylland_postcode }} {{ config.extra.jylland_city }}<br>Danmark</address>
+
+          <p class="text-white/60 text-sm mt-4">CVR: <a href="{{ config.extra.cvr_url | safe }}" target="_blank" rel="noopener" class="hover:text-primary transition-colors">{{ config.extra.cvr }}</a></p>
+          <p class="text-white/40 text-xs mt-2">Vi servicerer hele Danmark</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold mb-4 text-primary">Kontakt</h4>
+          <p class="text-white/80">
+            <a href="tel:{{ config.extra.phone_e164 }}" class="hover:text-primary transition-colors">{{ config.extra.phone_display }}</a>
+          </p>
+          <p class="text-white/80 mt-1">
+            <a href="mailto:{{ config.extra.email }}" class="hover:text-primary transition-colors">{{ config.extra.email }}</a>
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold mb-4 text-primary">Om os</h4>
+          <p class="text-white/60 text-sm">Dansk Kemisortering A/S er en danskejet virksomhed med speciale i kemisortering og affaldshåndtering. Vi har en lang erfaring med at sortere og håndtere kemikalier og andre affaldstyper på en bæredygtig måde.</p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40">
+        <p>&copy; 2026 DKS2026 A/S -  Dansk Kemisortering A/S. Alle rettigheder forbeholdes.</p>
+        <p>Bæredygtig affaldshåndtering siden 2018.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('shadow-md', 'bg-white');
+        nav.classList.remove('bg-white/90');
+      } else {
+        nav.classList.remove('shadow-md', 'bg-white');
+        nav.classList.add('bg-white/90');
+      }
+    });
+  </script>
+
+</body>
+</html>

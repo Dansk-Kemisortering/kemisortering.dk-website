@@ -3,56 +3,58 @@
 Marketing site for Dansk Kemisortering A/S — a single-page static site at
 [www.kemisortering.dk](https://www.kemisortering.dk/).
 
-Static HTML + Tailwind v4 (compiled locally), served by Caddy on a VPS at
-`hel1.x2q.net`. No JavaScript framework, no runtime build, no database.
+Built with [Zola](https://www.getzola.org/) (static site generator) and
+Tailwind CSS v4 (compiled locally), served by Caddy on a VPS at
+`hel1.x2q.net`.
 
 ## Repository layout
 
 ```
 .
-├── index.html             # the entire site
+├── config.toml            # site config + [extra] contact data (single source of truth)
+├── content/
+│   └── _index.md          # homepage front matter (template = index.html)
+├── templates/
+│   ├── base.html          # <head>, nav, footer, JSON-LD, scroll script
+│   ├── index.html         # homepage sections (extends base.html)
+│   └── robots.txt         # robots.txt template (Zola generates /robots.txt)
 ├── src/styles.css         # Tailwind v4 source (@theme tokens + custom CSS)
-├── css/styles.css         # compiled output (committed; needed for deploy)
-├── img/                   # logos (SVG) and photos (webp + JPG/PNG fallbacks)
-├── apple-touch-icon.png   # served from /apple-touch-icon.png
-├── robots.txt
-├── sitemap.xml
-├── llms.txt
-└── Makefile               # build / watch / deploy
+├── static/
+│   ├── css/styles.css      # compiled Tailwind (build output, committed)
+│   ├── img/                # logos (SVG) + photos (webp + JPG/PNG fallbacks)
+│   ├── apple-touch-icon.png
+│   └── llms.txt
+├── public/                # Zola build output (git-ignored)
+└── Makefile               # css / build / serve / deploy
 ```
 
-The HTML pulls images out of `img/`, the favicon stack out of `img/` + the
-root, and one stylesheet from `css/styles.css`. There are no other runtime
-dependencies.
+Everything under `static/` is copied verbatim to the site root. Zola
+generates `sitemap.xml` and `robots.txt` automatically.
+
+### Contact data lives in one place
+
+Phone, email, addresses, and CVR are defined once in `config.toml` under
+`[extra]` and referenced from the templates (footer, contact card, JSON-LD,
+meta). To change the phone number or add an address, edit `config.toml` —
+not the markup.
 
 ## Prerequisites
 
+- [`zola`](https://www.getzola.org/documentation/getting-started/installation/) (v0.22+)
 - [`tailwindcss`](https://tailwindcss.com/) v4 standalone CLI on `$PATH`
-  (the Makefile invokes it as `tailwindcss`)
-- `rsync` + SSH access to `root@hel1.x2q.net` (deploy target)
-- Optional for regenerating raster assets: `magick` (ImageMagick),
-  `cwebp`, `potrace`
+- `rsync` + SSH access to `root@hel1.x2q.net`
+- Optional, for regenerating raster assets: `magick`, `cwebp`, `potrace`
 
 ## Local development
 
-Serve the directory with any static server:
-
 ```sh
-python3 -m http.server 8765
-# then open http://127.0.0.1:8765
+make serve        # zola dev server with live reload at http://127.0.0.1:1111
+make css-watch    # in a second terminal: rebuild CSS on change
 ```
 
-While editing styles or HTML, run the watcher in another terminal so
-`css/styles.css` rebuilds on each change:
-
-```sh
-make watch
-```
-
-Tailwind v4 only emits CSS for utility classes it actually sees in
-`index.html`. Adding a new class to the HTML requires a rebuild — `make
-watch` handles that incrementally; `make build` does a one-shot minified
-build.
+Tailwind v4 only emits CSS for utility classes it sees in `templates/`.
+Adding a class to a template requires a CSS rebuild — `make css-watch`
+handles it incrementally; `make css` does a one-shot minified build.
 
 ## Deploy
 
@@ -60,55 +62,35 @@ build.
 make deploy
 ```
 
-That runs `make build` first, then `rsync`es `index.html` and
-`css/styles.css` to `root@hel1.x2q.net:/data/sites/kemisortering.dk/`.
-Caddy serves the directory directly; there is no reload or restart step.
+That builds the CSS, runs `zola build` into `public/`, then mirrors
+`public/` to `root@hel1.x2q.net:/data/sites/kemisortering.dk/` with
+`rsync --delete`. Caddy serves the directory directly — no reload step.
 
-If you change images, root files (`robots.txt`, `sitemap.xml`,
-`llms.txt`), favicons, or the SVG logos, push them explicitly:
-
-```sh
-rsync -av --relative img/<changed-file> root@hel1.x2q.net:/data/sites/kemisortering.dk/
-```
-
-Or just rsync the whole tree (skip the noise):
-
-```sh
-rsync -av --delete \
-  --exclude='.git/' --exclude='.DS_Store' --exclude='src/' --exclude='Makefile' --exclude='README.md' \
-  ./ root@hel1.x2q.net:/data/sites/kemisortering.dk/
-```
+> `rsync --delete` makes the server match `public/` exactly. Anything in
+> the deploy directory that isn't produced by the build will be removed.
 
 ## Asset workflow
 
-- **Logos** (`img/logo.svg`, `img/logo-tall.svg`) are hand-composed SVG
-  with a teal `<rect>` background and traced bottle paths.
-- **Favicons** (`img/favicon.png`, `img/favicon-48.png`,
-  `img/favicon-192.png`, `apple-touch-icon.png`) are rasterised from
-  `img/logo.svg` — regenerate with:
+- **Logos** (`static/img/logo.svg`, `static/img/logo-tall.svg`) are
+  hand-composed SVG — a teal `<rect>` background plus traced bottle paths.
+- **Favicons** (`static/img/favicon*.png`, `static/apple-touch-icon.png`)
+  are rasterised from `logo.svg`:
   ```sh
-  magick -background none -density 600 img/logo.svg -resize 192x192 img/favicon-192.png
-  magick -background none -density 600 img/logo.svg -resize 48x48  img/favicon-48.png
-  magick -background none -density 600 img/logo.svg -resize 32x32  img/favicon.png
-  magick -background none -density 600 img/logo.svg -resize 180x180 apple-touch-icon.png
+  magick -background none -density 600 static/img/logo.svg -resize 192x192 static/img/favicon-192.png
+  magick -background none -density 600 static/img/logo.svg -resize 48x48  static/img/favicon-48.png
+  magick -background none -density 600 static/img/logo.svg -resize 32x32  static/img/favicon.png
+  magick -background none -density 600 static/img/logo.svg -resize 180x180 static/apple-touch-icon.png
   ```
-- **Photos** (hero, bottles, process steps) ship as `<picture>` with a
-  `webp` source and a JPG/PNG fallback. Hero variants are generated at
-  768 / 1024 / 1536 px wide so the preload + srcset can pick the right
-  one. To regenerate variants of a new PNG, see commands in commit
-  `d213932`.
+- **Photos** ship as `<picture>` with a `webp` source and a JPG/PNG
+  fallback. Hero variants exist at 768 / 1024 / 1536 px for the preload +
+  srcset.
 
 ## Out-of-repo configuration
 
-A few things the SEO/security scanner expects are not fixable by changing
-files in this repo:
+Some scanner expectations are not fixable by changing files in this repo:
 
 | Concern | Lives in |
 |---|---|
-| `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Content-Security-Policy` headers | Caddyfile on `hel1.x2q.net` |
-| HSTS preload eligibility | same |
+| Security headers (HSTS, CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy) | Caddyfile on `hel1.x2q.net` |
 | SPF, DMARC, CAA records | DNS at the registrar for `kemisortering.dk` |
 | MX / DKIM | already configured (Google Workspace) |
-
-Recommended snippets for these are in the git history (see commit
-`d213932` body and surrounding chat context).

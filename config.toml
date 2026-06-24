@@ -1,0 +1,39 @@
+base_url = "https://www.kemisortering.dk"
+title = "Dansk Kemisortering - Miljøvenlig affaldshåndtering"
+description = "Dansk Kemisortering specialiserer sig i håndtering af plastbeholdere med kemi - syrer og baser. Din partner i miljøvenlig og sikker affaldshåndtering."
+default_language = "da"
+
+# Generate sitemap.xml and robots.txt from templates
+generate_sitemap = true
+generate_robots_txt = true
+
+# We hand-author the page markup; no Markdown rendering needed.
+build_search_index = false
+
+[extra]
+# Brand / contact — referenced across the template, JSON-LD, footer and meta.
+# Edit here once; it propagates everywhere.
+org_name = "Dansk Kemisortering A/S"
+og_description = "Vi omdanner kemisk affald til genanvendelige ressourcer. Miljøgodkendt, sikkert og økonomisk fornuftigt."
+
+phone_display = "+45 5555 5252"
+phone_e164 = "+4555555252"
+email = "info@kemisortering.dk"
+
+cvr = "46183231"
+cvr_url = "https://cvrapi.dk/virksomhed/dk/dansk-kemisortering-as/46183231"
+cvr_authoritative_url = "https://datacvr.virk.dk/enhed/virksomhed/46183231"
+founded = "2018"
+
+hq_street = "P. O. Pedersens Vej 2"
+hq_postcode = "8200"
+hq_city = "Aarhus N"
+hq_region = "Midtjylland"
+
+jylland_name = "Kemisorteringsanlæg Jylland"
+jylland_street = "Sønderlundvej 10"
+jylland_postcode = "7500"
+jylland_city = "Holstebro"
+jylland_region = "Midtjylland"
+
+og_image = "img/hero-bg-2026-1536.jpg"

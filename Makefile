@@ -1,13 +1,21 @@
-build:
-	tailwindcss -i src/styles.css -o css/styles.css --minify
+css:
+	tailwindcss -i src/styles.css -o static/css/styles.css --minify
 
-watch:
-	tailwindcss -i src/styles.css -o css/styles.css --watch
+css-watch:
+	tailwindcss -i src/styles.css -o static/css/styles.css --watch
 
+# Build the CSS, then the static site into public/
+build: css
+	zola build
+
+# Live preview with Zola's dev server (run `make css-watch` alongside for CSS)
+serve:
+	zola serve
+
+# Build, then rsync the generated site to the VPS
 deploy: build
-	rsync -av --relative \
-		index.html \
-		css/styles.css \
+	rsync -av --delete \
+		public/ \
 		root@hel1.x2q.net:/data/sites/kemisortering.dk/
 
-.PHONY: build watch deploy
+.PHONY: css css-watch build serve deploy
