@@ -12,10 +12,10 @@ build: css
 serve:
 	zola serve
 
-# Build, then rsync the generated site to the VPS
+# Deploy = push to master. Cloudflare Pages builds and publishes
+# automatically. Build locally first to catch errors before pushing.
 deploy: build
-	rsync -av --delete \
-		public/ \
-		root@hel1.x2q.net:/data/sites/kemisortering.dk/
+	@echo "Build OK. Deploy by committing the rebuilt CSS and pushing to master:"
+	@echo "    git add -A && git commit && git push"
 
 .PHONY: css css-watch build serve deploy

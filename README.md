@@ -79,13 +79,9 @@ catches this.
 HTTP response headers (security headers + cache-control) are served from
 [`static/_headers`](static/_headers), which Cloudflare Pages reads.
 
-### Manual / VPS fallback
-
-The repo also still supports rsync to the old Caddy VPS:
-
-```sh
-make deploy   # build + rsync public/ to root@hel1.x2q.net
-```
+`make deploy` just builds locally and reminds you to push — there is no
+separate deploy step. (The site was previously served by Caddy on a VPS;
+that host has been retired in favour of Cloudflare Pages.)
 
 ## Asset workflow
 
