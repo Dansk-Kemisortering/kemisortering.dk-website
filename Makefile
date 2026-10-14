@@ -1,21 +1,15 @@
-css:
-	tailwindcss -i src/styles.css -o static/css/styles.css --minify
-
-css-watch:
-	tailwindcss -i src/styles.css -o static/css/styles.css --watch
-
-# Build the CSS, then the static site into public/
-build: css
+# Build the static site into public/
+build:
 	zola build
 
-# Live preview with Zola's dev server (run `make css-watch` alongside for CSS)
+# Live preview with Zola's dev server (http://127.0.0.1:1111)
 serve:
-	zola serve
+	zola serve --interface 127.0.0.1 --port 1111
 
-# Deploy = push to master. Cloudflare Pages builds and publishes
-# automatically. Build locally first to catch errors before pushing.
+# Deploy = push to master. Cloudflare Pages builds and publishes automatically.
+# Build locally first to catch template errors before pushing.
 deploy: build
-	@echo "Build OK. Deploy by committing the rebuilt CSS and pushing to master:"
+	@echo "Build OK. Deploy by committing and pushing to master:"
 	@echo "    git add -A && git commit && git push"
 
-.PHONY: css css-watch build serve deploy
+.PHONY: build serve deploy

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="300 30 400 360" width="400" height="360" role="img" aria-labelledby="t d">
+  <title id="t">Automatisk sortering</title>
+  <desc id="d">Tyve forskellige produkter kører på et transportbånd gennem en scanzone med tre kameraer. Produktets navn sættes på, når det er halvvejs gennem scanningen.</desc>
+  <style>
+    .belt{stroke-dasharray:10 14;animation:belt .53s linear infinite}
+    .mv{animation:mv 60s linear infinite;animation-delay:var(--d)}
+    .scan{animation:scan 60s linear infinite;animation-delay:var(--d)}
+    .tag{animation:tag 60s linear infinite;animation-delay:var(--d)}
+    .cone{animation:cone 1.6s ease-in-out infinite}
+    .nm{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:12px;font-weight:700;text-anchor:middle;fill:#0E2A33}
+    @keyframes belt{to{stroke-dashoffset:-24}}
+    @keyframes mv{0%{transform:translateX(0)}39.6%{transform:translateX(1080px)}100%{transform:translateX(1080px)}}
+    @keyframes scan{0%,17.6%{opacity:0}17.8%,19.7%{opacity:1}19.8%,100%{opacity:0}}
+    @keyframes tag{0%,19.7%{opacity:0}19.9%,39.6%{opacity:1}39.7%,100%{opacity:0}}
+    @keyframes cone{0%,100%{opacity:.3}50%{opacity:1}}
+    @media (prefers-reduced-motion:reduce){.belt,.mv,.scan,.tag,.cone{animation:none}}
+  </style>
+  <rect x="300" y="30" width="400" height="360" rx="28" fill="#0E2A33"/>
+  <defs>
+            <g id="bt">
+              <path d="M-17 0 L-17 -46 C-17 -58 -9 -62 -9 -72 L-9 -80 L9 -80 L9 -72 C9 -62 17 -58 17 -46 L17 0 Q17 3 14 3 L-14 3 Q-17 3 -17 0 Z" fill="currentColor"/>
+              <rect x="-10" y="-90" width="20" height="10" rx="2" fill="#0E2A33" stroke="#9FBDC4" stroke-width="1"/>
+              <rect x="-12" y="-44" width="24" height="28" rx="3" fill="#FFFFFF" fill-opacity="0.82"/>
+            </g>
+            <g id="jug">
+              <path d="M-22 0 L-22 -42 Q-22 -50 -14 -52 L-8 -54 L-8 -62 L8 -62 L8 -54 L14 -52 Q22 -50 22 -42 L22 0 Q22 3 19 3 L-19 3 Q-22 3 -22 0 Z" fill="currentColor"/>
+              <path d="M22 -46 C38 -44 38 -14 22 -12" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+              <rect x="-10" y="-71" width="20" height="9" rx="2" fill="#0E2A33" stroke="#9FBDC4" stroke-width="1"/>
+              <rect x="-14" y="-40" width="28" height="24" rx="3" fill="#FFFFFF" fill-opacity="0.82"/>
+            </g>
+            <g id="can">
+              <path d="M-24 0 L-24 -52 L-12 -64 L24 -64 L24 0 Q24 3 21 3 L-21 3 Q-24 3 -24 0 Z" fill="currentColor"/>
+              <rect x="-6" y="-74" width="14" height="10" rx="2" fill="#0E2A33" stroke="#9FBDC4" stroke-width="1"/>
+              <rect x="-14" y="-42" width="28" height="22" rx="3" fill="#FFFFFF" fill-opacity="0.82"/>
+            </g>
+            <g id="tub">
+              <rect x="-26" y="-36" width="52" height="39" rx="6" fill="currentColor"/>
+              <rect x="-28" y="-46" width="56" height="12" rx="4" fill="#0E2A33" stroke="#9FBDC4" stroke-width="1"/>
+              <rect x="-16" y="-30" width="32" height="18" rx="3" fill="#FFFFFF" fill-opacity="0.82"/>
+            </g>
+            <g id="slim">
+              <path d="M-13 0 L-13 -70 Q-13 -76 -7 -78 L-7 -86 L7 -86 L7 -78 Q13 -76 13 -70 L13 0 Q13 3 10 3 L-10 3 Q-13 3 -13 0 Z" fill="currentColor"/>
+              <rect x="-9" y="-96" width="18" height="10" rx="2" fill="#0E2A33" stroke="#9FBDC4" stroke-width="1"/>
+              <rect x="-9" y="-62" width="18" height="30" rx="3" fill="#FFFFFF" fill-opacity="0.82"/>
+            </g>
+            <rect id="bx" x="-32" y="-104" width="64" height="112" rx="6" fill="none" stroke="#9FBDC4" stroke-width="2" stroke-dasharray="5 4"/>
+            <g id="tg">
+              <rect x="-32" y="-104" width="64" height="112" rx="6" fill="none" stroke="#E2D43B" stroke-width="2.5"/>
+              <rect x="-62" y="-147" width="124" height="26" rx="6" fill="#E2D43B"/>
+            </g>
+          </defs>
+
+
+          <line x1="0" y1="378" x2="1000" y2="378" stroke="#2B5560" stroke-width="2"/>
+          <rect x="150" y="316" width="14" height="62" fill="#1B3D49"/>
+          <rect x="836" y="316" width="14" height="62" fill="#1B3D49"/>
+          <rect x="-20" y="290" width="1040" height="26" rx="13" fill="#2A4A55"/>
+          <line class="belt" x1="0" y1="303" x2="1000" y2="303" stroke="#6C98A6" stroke-width="2"/>
+
+          <polygon class="cone" points="401,214 445,288 555,288" fill="#E2D43B" fill-opacity="0.26"/>
+          <polygon class="cone" points="500,132 450,288 550,288" fill="#E2D43B" fill-opacity="0.26" style="animation-delay:-0.5s"/>
+          <polygon class="cone" points="599,214 445,288 555,288" fill="#E2D43B" fill-opacity="0.26" style="animation-delay:-1s"/>
+
+          
+<!-- scanzone: portal og tre kameraer -->
+          <rect x="370" y="104" width="12" height="186" rx="3" fill="#1B3D49" stroke="#4B7380" stroke-width="1.5"/>
+          <rect x="618" y="104" width="12" height="186" rx="3" fill="#1B3D49" stroke="#4B7380" stroke-width="1.5"/>
+          <rect x="364" y="104" width="272" height="14" rx="5" fill="#1B3D49" stroke="#4B7380" stroke-width="1.5"/>
+          <rect x="386" y="192" width="30" height="22" rx="5" fill="#0E2A33" stroke="#E2D43B" stroke-width="2"/>
+          <circle cx="401" cy="210" r="5" fill="#E2D43B"/>
+          <rect x="485" y="118" width="30" height="14" rx="4" fill="#0E2A33" stroke="#E2D43B" stroke-width="2"/>
+          <circle cx="500" cy="125" r="4" fill="#E2D43B"/>
+          <rect x="584" y="192" width="30" height="22" rx="5" fill="#0E2A33" stroke="#E2D43B" stroke-width="2"/>
+          <circle cx="599" cy="210" r="5" fill="#E2D43B"/>
+          <line x1="500" y1="82" x2="500" y2="104" stroke="#E2D43B" stroke-width="2"/>
+          <rect x="425" y="48" width="150" height="34" rx="8" fill="#E2D43B"/>
+          <text x="500" y="70" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="500" letter-spacing="1" fill="#0E2A33">SCANNING</text>
+<!-- 20 forskellige produkter. Identifikationen sættes på midtvejs i scanningen. -->
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(0 0)" style="--d:0s;color:#E2D43B"><use href="#bt"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Citronsyre</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(136 0)" style="--d:-3s;color:#CFE3E7"><use href="#jug"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Salmiakspiritus</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(273 0)" style="--d:-6s;color:#4FC3D6"><use href="#can"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Saltsyre</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(409 0)" style="--d:-9s;color:#F2A65A"><use href="#tub"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Kaustisk soda</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(546 0)" style="--d:-12s;color:#7BD389"><use href="#slim"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="1"><use href="#tg"></use><text class="nm" x="0" y="-129">Eddikesyre</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(682 0)" style="--d:-15s;color:#E36F6F"><use href="#bt"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="1"><use href="#tg"></use><text class="nm" x="0" y="-129">Afløbsrens</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(819 0)" style="--d:-18s;color:#B9A3E8"><use href="#can"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="1"><use href="#tg"></use><text class="nm" x="0" y="-129">Myresyre</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(955 0)" style="--d:-21s;color:#FFFFFF"><use href="#jug"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="1"><use href="#tg"></use><text class="nm" x="0" y="-129">Ammoniak</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-24s;color:#E2D43B"><use href="#slim"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Afkalker</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-27s;color:#4FC3D6"><use href="#tub"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Natronlud</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-30s;color:#CFE3E7"><use href="#jug"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Fosforsyre</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-33s;color:#F2A65A"><use href="#bt"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Grillrens</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-36s;color:#7BD389"><use href="#can"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Svovlsyre</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-39s;color:#E36F6F"><use href="#slim"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Kalkfjerner</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-42s;color:#B9A3E8"><use href="#tub"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Skimmelfjerner</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-45s;color:#E2D43B"><use href="#can"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Rustfjerner</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-48s;color:#4FC3D6"><use href="#slim"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Klorlud</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-51s;color:#FFFFFF"><use href="#bt"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Batterisyre</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-54s;color:#F2A65A"><use href="#jug"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Ovnrens</text></g></g></g>
+          <g transform="translate(-40 287)"><g class="mv" transform="translate(2000 0)" style="--d:-57s;color:#CFE3E7"><use href="#tub"></use><use class="scan" href="#bx" opacity="0"></use><g class="tag" opacity="0"><use href="#tg"></use><text class="nm" x="0" y="-129">Poolsyre</text></g></g></g>
+
+          
+</svg>

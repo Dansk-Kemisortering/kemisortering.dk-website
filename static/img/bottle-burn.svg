@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 260" width="92" height="200" role="img" aria-label="Illustration af en grøn flaske med gult låg og mørk etiket">
+  <defs>
+    <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.2" fill="#3A6B52"/></pattern>
+  </defs>
+  <path d="M46 32 L74 32 L74 48 C74 66 100 78 100 104 L100 236 Q100 252 84 252 L36 252 Q20 252 20 236 L20 104 C20 78 46 66 46 48 Z" fill="#1F5A3C"/>
+  <rect x="40" y="30" width="40" height="7" rx="3.5" fill="#174631"/>
+  <rect x="40" y="40" width="40" height="5" rx="2.5" fill="#174631"/>
+  <rect x="42" y="4" width="36" height="26" rx="5" fill="#E2D43B"/>
+  <g stroke="#B9A92B" stroke-width="1.6" stroke-linecap="round">
+    <line x1="50" y1="9" x2="50" y2="25"/><line x1="58" y1="9" x2="58" y2="25"/><line x1="66" y1="9" x2="66" y2="25"/><line x1="73" y1="9" x2="73" y2="25"/>
+  </g>
+  <rect x="24" y="116" width="72" height="104" rx="6" fill="#0E2A33"/>
+  <rect x="24" y="116" width="72" height="104" rx="6" fill="url(#dots)"/>
+  <rect x="20" y="228" width="80" height="6" fill="#174631"/>
+  <path d="M29 104 L29 232" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="5" stroke-linecap="round"/>
+</svg>

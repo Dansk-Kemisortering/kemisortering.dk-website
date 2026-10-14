@@ -6,6 +6,7 @@
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
   <meta name="description" content="{{ config.description }}">
   <link rel="canonical" href="{{ config.base_url | safe }}/">
+  <meta name="theme-color" content="#0E2A33">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Dansk Kemisortering">
@@ -13,21 +14,21 @@
   <meta property="og:url" content="{{ config.base_url | safe }}/">
   <meta property="og:title" content="{{ config.title }}">
   <meta property="og:description" content="{{ config.extra.og_description }}">
-  <meta property="og:image" content="{{ get_url(path=config.extra.og_image) }}">
-  <meta property="og:image:width" content="1536">
-  <meta property="og:image:height" content="1024">
-  <meta property="og:image:alt" content="Dansk Kemisortering facility">
+  <meta property="og:image" content="{{ get_url(path=config.extra.og_image) | safe }}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ config.extra.og_image_alt }}">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ config.title }}">
   <meta name="twitter:description" content="{{ config.extra.og_description }}">
-  <meta name="twitter:image" content="{{ get_url(path=config.extra.og_image) }}">
+  <meta name="twitter:image" content="{{ get_url(path=config.extra.og_image) | safe }}">
+  <meta name="twitter:image:alt" content="{{ config.extra.og_image_alt }}">
 
-  <link rel="preload" as="image" href="/img/hero-bg-2026-1024.webp" type="image/webp" imagesrcset="/img/hero-bg-2026-768.webp 768w, /img/hero-bg-2026-1024.webp 1024w, /img/hero-bg-2026-1536.webp 1536w" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
-
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/lato-400.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/lato-700.woff2" crossorigin>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/bricolage-grotesque-700.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-sans-400.woff2" crossorigin>
+  <link rel="stylesheet" href="/css/site.css?v={{ config.extra.asset_version }}">
   <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
   <link rel="icon" href="/img/favicon-192.png" sizes="192x192" type="image/png">
   <link rel="icon" href="/img/favicon-48.png" sizes="48x48" type="image/png">
@@ -41,9 +42,9 @@
     "@id": "{{ config.base_url | safe }}/#organization",
     "name": "{{ config.extra.org_name | safe }}",
     "url": "{{ config.base_url | safe }}/",
-    "logo": "{{ get_url(path='img/logo.svg') }}",
-    "image": "{{ get_url(path=config.extra.og_image) }}",
-    "description": "Dansk Kemisortering specialiserer sig i håndtering af plastbeholdere med kemi – syrer og baser. Din partner i miljøvenlig og sikker affaldshåndtering. Vi servicerer hele Danmark.",
+    "logo": "{{ get_url(path='img/logo.svg') | safe }}",
+    "image": "{{ get_url(path=config.extra.og_image) | safe }}",
+    "description": "{{ config.extra.org_description }}",
     "telephone": "{{ config.extra.phone_e164 }}",
     "email": "{{ config.extra.email }}",
     "foundingDate": "{{ config.extra.founded }}",
@@ -88,10 +89,6 @@
       "alternateName": "Danmark",
       "sameAs": "https://www.wikidata.org/wiki/Q35"
     },
-    "serviceArea": {
-      "@type": "Country",
-      "name": "Denmark"
-    },
     "sameAs": [
       "{{ config.extra.cvr_authoritative_url | safe }}"
     ]
@@ -99,74 +96,32 @@
   </script>
   {% block extra_head %}{% endblock extra_head %}
 </head>
-<body class="font-sans text-contrast bg-white antialiased">
+<body>
+  <a class="skip-link" href="#top">Spring til indhold</a>
 
-  <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 group">
-        <img src="/img/logo.svg" alt="Dansk Kemisortering" width="512" height="512" class="w-10 h-10 transition-transform group-hover:scale-110">
-        <span class="font-bold text-primary hidden sm:block">Dansk Kemisortering</span>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="/img/logo.svg" alt="" width="44" height="44">
+        <span>Dansk Kemisortering</span>
       </a>
-      <div class="flex items-center gap-6">
-        <a href="#proces" class="text-sm font-medium text-contrast/70 hover:text-primary transition-colors hidden md:block">Proces</a>
-        <a href="#hvorfor" class="text-sm font-medium text-contrast/70 hover:text-primary transition-colors hidden md:block">Hvorfor os</a>
-        <a href="#kontakt" class="bg-primary text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-primary-dark transition-all btn-shine">
-          Kontakt
-        </a>
-      </div>
+      <nav class="site-nav" aria-label="Hovedmenu">
+        <a class="nav-link" href="#ai">Anlægget</a>
+        <a class="nav-link" href="#faq">Samarbejde</a>
+        <a class="btn-call" href="tel:{{ config.extra.phone_e164 }}">Ring {{ config.extra.phone_display }}</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <main>
+  <main id="top">
 {% block content %}{% endblock content %}
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-contrast text-white py-16 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-4 gap-10 mb-12">
-        <div class="md:col-span-1">
-          <img src="/img/logo.svg" alt="Dansk Kemisortering" width="512" height="512" class="w-24 h-auto mb-4 opacity-90">
-          <p class="text-white/60 text-sm">Din partner i miljøvenlig og sikker affaldshåndtering</p>
-        </div>
-
-        <div>
-          <h4 class="font-bold mb-4 text-primary">Hovedkontor</h4>
-          <p class="text-white/80 font-semibold">{{ config.extra.org_name | safe }}</p>
-          <address class="text-white/60 text-sm mt-2 not-italic">{{ config.extra.hq_street }}<br>{{ config.extra.hq_postcode }} {{ config.extra.hq_city }}<br>Danmark</address>
-
-          <h4 class="font-bold mt-6 mb-2 text-primary">{{ config.extra.jylland_name }}</h4>
-          <address class="text-white/60 text-sm not-italic">{{ config.extra.jylland_street }}<br>{{ config.extra.jylland_postcode }} {{ config.extra.jylland_city }}<br>Danmark</address>
-
-          <p class="text-white/60 text-sm mt-4">CVR: <a href="{{ config.extra.cvr_url | safe }}" target="_blank" rel="noopener" class="hover:text-primary transition-colors">{{ config.extra.cvr }}</a></p>
-          <p class="text-white/40 text-xs mt-2">Vi servicerer hele Danmark</p>
-        </div>
-
-        <div>
-          <h4 class="font-bold mb-4 text-primary">Kontakt</h4>
-          <p class="text-white/80">
-            <a href="tel:{{ config.extra.phone_e164 }}" class="hover:text-primary transition-colors">{{ config.extra.phone_display }}</a>
-          </p>
-          <p class="text-white/80 mt-1">
-            <a href="mailto:{{ config.extra.email }}" class="hover:text-primary transition-colors">{{ config.extra.email }}</a>
-          </p>
-        </div>
-
-        <div>
-          <h4 class="font-bold mb-4 text-primary">Om os</h4>
-          <p class="text-white/60 text-sm">Dansk Kemisortering A/S er en danskejet virksomhed med speciale i kemisortering og affaldshåndtering. Vi har en lang erfaring med at sortere og håndtere kemikalier og andre affaldstyper på en bæredygtig måde.</p>
-        </div>
-      </div>
-
-      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40">
-        <p>&copy; 2026 DKS2026 A/S -  Dansk Kemisortering A/S. Alle rettigheder forbeholdes.</p>
-        <p>Bæredygtig affaldshåndtering siden 2018.</p>
-      </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; {{ now() | date(format="%Y") }} {{ config.extra.org_name | safe }} · CVR <a href="{{ config.extra.cvr_url | safe }}" rel="noopener">{{ config.extra.cvr }}</a></p>
+      <p>Bæredygtig affaldshåndtering siden {{ config.extra.founded }}</p>
     </div>
   </footer>
-
-  <script src="/js/nav.js" defer></script>
-
 </body>
 </html>

@@ -1,10 +1,11 @@
 # Dansk Kemisortering A/S
 
-> Danish company specializing in sustainable handling of hazardous chemical
-> waste — specifically plastic containers with acids and bases collected from
-> consumer recycling centers. We sort and recycle packaging materials and
-> route acids/bases to specialized treatment, as an alternative to default
-> incineration of hazardous waste.
+> Danish company that sorts hazardous chemical waste (kemiaffald) on a modern,
+> automated sorting plant — as an alternative to default incineration. We
+> receive chemical waste from Danish recycling centers (genbrugspladser) and
+> from industry, sort it, recycle packaging, and send chemical fractions to
+> specialized treatment. The large majority of the sorted fractions are sold
+> on to industrial companies.
 
 ## Overview
 
@@ -21,30 +22,30 @@
 
 ## What we do
 
-We receive sealed drums (spændelåsfade) packed with vermiculite from Danish
-recycling stations (genbrugspladser). Each drum contains plastic containers
-of hazardous chemical waste — typically household acids and bases — sorted
-by private consumers. Standard practice in Denmark is to incinerate the
-entire drum and its contents. We instead:
+Standard practice in Denmark is to incinerate hazardous waste, including
+sealed drums (spændelåsfade) with their contents. We sort instead:
 
-1. **Receive** sealed drums packed in vermiculite.
-2. **Recycle** packaging materials where possible.
-3. **Treat** acids and bases through specialized chemical processing,
-   handled separately with thorough cleaning between batches.
-4. **Destroy** residual granulate safely.
+1. **Receive** chemical waste from recycling centers and from industry
+   (drums packed in vermiculite from the recycling centers).
+2. **Sort** the products automatically: products pass through a scan zone with
+   three cameras, where an AI model reads label, barcode and hazard marking and
+   identifies the product halfway through the scan.
+3. **Recycle** packaging materials where possible.
+4. **Treat** chemical products through specialized processing, handled
+   separately. The large majority of the fractions are sold on to industrial
+   companies.
 
 This is a circular-economy alternative to default incineration, designed to
 be environmentally approved (miljøgodkendt), safe, and economically viable.
 
 ## Key facts
 
-- Specializes in plastic containers with acids and bases — not general
-  hazardous waste.
+- Receives chemical waste from recycling centers and from industry.
+- Automatic sorting with an AI model and three cameras on a conveyor belt.
 - Operations are environmentally approved with high safety prioritization.
-- Acid and base containers are processed separately, with thorough cleaning
-  between batches.
-- Ongoing R&D into recycling possibilities for plastic granulate.
-- Also supplies UN-approved sealed drums (spændelåsfade) and vermiculite.
+- Most sorted fractions are sold to industrial companies.
+- Ongoing tests of recycling possibilities for plastic granulate.
+- Can help with UN-approved sealed drums (spændelåsfade) and vermiculite.
 
 ## Contact
 
@@ -56,4 +57,4 @@ be environmentally approved (miljøgodkendt), safe, and economically viable.
 
 ## Pages
 
-- [Homepage](https://www.kemisortering.dk/): overview, process, contact.
+- [Homepage](https://www.kemisortering.dk/): overview, sorting plant, where fractions go, FAQ, contact.
