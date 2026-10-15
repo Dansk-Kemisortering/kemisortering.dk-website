@@ -74,9 +74,6 @@
               <rect x="-62" y="-147" width="124" height="26" rx="6" fill="#E2D43B"/>
             </g>
           </defs>
-
-
-          <line x1="0" y1="378" x2="1000" y2="378" stroke="#2B5560" stroke-width="2"/>
           <rect x="150" y="316" width="14" height="62" fill="#1B3D49"/>
           <rect x="836" y="316" width="14" height="62" fill="#1B3D49"/>
           <rect x="-20" y="290" width="1040" height="26" rx="13" fill="#2A4A55"/>
