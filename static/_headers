@@ -5,9 +5,10 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
 
-# site.css is referenced with a content hash (?h=...), so it can be cached "forever".
+# site.css is referenced with ?v=<asset_version>. Keep the TTL short so a stale
+# copy (e.g. cached while a deploy was still rolling out) heals itself quickly.
 /css/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600
 
 # Font file names never change content.
 /fonts/*

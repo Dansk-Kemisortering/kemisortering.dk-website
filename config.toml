@@ -34,7 +34,7 @@ jylland_city = "Holstebro"
 jylland_region = "Midtjylland"
 
 # Bump when css/site.css or img/sorting-scan.svg change (they are cached for a long time).
-asset_version = "2026-10-15b"
+asset_version = "2026-10-15c"
 
 og_image = "img/og-image.jpg"
 og_image_alt = "Dansk Kemisortering: bæredygtig håndtering af kemikalieaffald. Produkter kører på et transportbånd gennem en scanzone med tre kameraer."
