@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ config.default_language }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} · Dansk Kemisortering</title>
+  <meta name="description" content="{{ page.description }}">
+  <link rel="canonical" href="{{ page.permalink | safe }}">
+  <meta name="theme-color" content="#0E2A33">
+  <link rel="icon" href="/img/favicon.png" sizes="32x32" type="image/png">
+  <link rel="stylesheet" href="/css/site.css?v={{ config.extra.asset_version }}">
+</head>
+<body>
+  <a class="skip-link" href="#top">Spring til indhold</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="/img/logo.svg" alt="" width="44" height="44">
+        <span>Dansk Kemisortering</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <article class="legal wrap">
+      <h1>{{ page.title }}</h1>
+{{ page.content | safe }}
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; {{ now() | date(format="%Y") }} {{ config.extra.org_name | safe }} · CVR <a href="{{ config.extra.cvr_url | safe }}" rel="noopener">{{ config.extra.cvr }}</a></p>
+      <p>Bæredygtig affaldshåndtering siden {{ config.extra.founded }}</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -204,3 +204,13 @@ address { font-style: normal; }
   .site-nav .nav-link { display: none; }
   .compare-card { padding: 28px; }
 }
+
+/* Plain text pages (privacy policy). */
+.legal { max-width: 46em; padding-top: 56px; padding-bottom: 80px; }
+.legal h1 { font-family: var(--f-display); font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin-bottom: 20px; }
+.legal h2 { font-family: var(--f-display); font-size: 22px; margin: 36px 0 10px; }
+.legal p, .legal li { font-size: 17px; line-height: 1.6; color: var(--muted); }
+.legal p { margin-bottom: 14px; }
+.legal ul { padding-left: 1.2em; margin-bottom: 14px; }
+.legal li { margin-bottom: 8px; }
+.legal a { color: var(--teal-deep); text-decoration: underline; }
